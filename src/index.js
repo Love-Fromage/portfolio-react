@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import {BrowserRouter} from 'react-router-dom'
 import "./index.css";
 import App from "./App";
 
@@ -7,7 +8,7 @@ const container = document.getElementById("root");
 //create a root
 const root = ReactDOM.createRoot(container);
 //initial render
-root.render(<App />);
+// root.render(<App />);
 
 //During an update, there is no need to pass the container again
 root.render(<App />);
