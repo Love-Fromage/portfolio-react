@@ -31,14 +31,14 @@ const Post = (props) => {
 					{ postData && postData.map((post, index)=>(
 					<article>
 					{/* {console.log(post.slug)} */}
-					{/* <Link to={"/post/" + post.slug.current} key={postData.slug.current}> */}
+					<Link to={"/post/" + post.slug.current} key={post.slug.current}>
 						<span className="block h-64 relative rounded shadow leading-snug bg-white" key={index}>
 							<img src={post.mainImage.asset.url} alt={post.mainImage.alt} className="w-full h-full rounded-r object-cover absolute" />
 							<span className="block relative h-full flex justify-end items-end pr-4 pb-4">
 								<h3 className="text-gray-800 text-lg font-blog px-3 py-4 bg-red-700 text-red-100 bg-opacity-75 rounded">{post.title}</h3>
 							</span>
 						</span>
-						{/* </Link> */}
+						</Link>
 					</article>
 					))}
 				</div>

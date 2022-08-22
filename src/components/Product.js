@@ -1,18 +1,21 @@
 import React, {useEffect, useState} from "react";
 import sanityClient from "../client";
+import { Link } from "react-router-dom";
 
-const Project = (props) => {
-	const [projectData, setProjectData]=useState(null)
+
+const Product = (props) => {
+	const [productData, setProductData]=useState(null)
 	useEffect(()=>{
-		sanityClient.fetch(`*[_type == "project"]{
+		sanityClient.fetch(`*[_type == "product"]{
 			title,
-			date,
-			place,
+			
+		
 			description,
-			projectType,
-			link,
-			tags
-		}`).then((data)=>setProjectData(data))
+			
+			price,
+            slug
+			
+		}`).then((data)=>setProductData(data))
 		.catch(console.error);
 	}, [])
 	return(
@@ -23,37 +26,36 @@ const Project = (props) => {
 				<h2 className="text-lg text-gray-600 flex justify-center mb-12"></h2>
 				<section className="grid grid-cols-2 gap-8">
 				{
-					projectData && projectData.map((project, index)=>(
+					productData && productData.map((product, index)=>(
 
 					
 				
 					<article className="relative rounded-lg shadow-xl bg-white p-16">
 						<h3 className="text-gray-800 text-3cl font-bold mb-2 hover:text-red-700">
 							<a
-							 href={project.link}
-							 alt={project.title}
+							 href={product.slug.current}
+							 alt={product.title}
 							 rel="noopener noreferrer"
-							 >{project.title}</a>
+							 >{product.title}</a>
 						</h3>
 						<div className="text-gray-500 text-xs space-x-4">
 							<span>
 								<strong className="font-bold">Finished on</strong>:{" "}
-								{new Date(project.date).toLocaleDateString()}
+								{new Date(product.date).toLocaleDateString()}
 							</span>
 							<span>
-								<strong className="font-bold">Company</strong>: {project.place}
+								<strong className="font-bold">Company</strong>: {product.place}
 							</span>
-							<span>
-								<strong className="font-bold">Type</strong>: {" "}
-								{project.projectType}
-							</span>
+							
 							<p className="my-6 text-lg text-gray-700 leading-relaxed">
-								{project.description}
+								{product.description}
 							</p>
-							<a href={project.link} rel="noopener noreferrer" target="_blank" className="text-red-500 font-bold hover:underline hover:text-red-400">
-								View the project {" "}
+                            <Link to={"/product/" + product.slug.current} key={product.slug.current}>
+							<a href={product.link} rel="noopener noreferrer" target="_blank" className="text-red-500 font-bold hover:underline hover:text-red-400">
+								View the product {" "}
 							<span role="img" aria-label="right pointer">👉</span>
 							</a>
+                            </Link>
 						</div>
 					</article>
 					))}
@@ -63,4 +65,4 @@ const Project = (props) => {
 	);
 };
 
-export default Project;
+export default Product;
